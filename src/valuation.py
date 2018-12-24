@@ -14,8 +14,8 @@ FCF=float(sys.argv[1])
 
 #FCF Growth Rate1 for 1-5 years
 FCFGR1=float(sys.argv[2])
-if FCFGR1 > 30:
-	FCFGR1 = 30
+if FCFGR1 > 15:
+	FCFGR1 = 15
 
 #FCF Growth Rate2 for 6-10 years
 FCFGR2=float(sys.argv[3])
@@ -28,8 +28,12 @@ MOS1=2.0/3.0
 MOS2=2.5/3.0
 #EPS
 EPS=float(sys.argv[7])
+
 #EPS Growth Rate
 EPSGR=float(sys.argv[8])
+if EPSGR > 13:
+	EPSGR=13
+
 #Repo Rate
 RR=float(sys.argv[9])
 #10 Year Bond Yield
@@ -42,6 +46,8 @@ if FCF > 0.0:
 	entryPrice2D=intrinsicValuePerShareDCF*MOS2
 	entryPrice1P=intrinsicValuePerSharePabrai*MOS1
 	entryPrice2P=intrinsicValuePerSharePabrai*MOS2
+	print ("\n")
+	print ("FCF and FCF Growth Taken: ",FCF,FCFGR1)
 	print ("Based on Discounted Cash Flow Method")
 	print ("Intrinsic Value Per Share: ", intrinsicValuePerShareDCF)
 	print ("Entry Price Safe: ",entryPrice1D)
@@ -53,10 +59,14 @@ if FCF > 0.0:
 	print ("Entry Price Relaxed: ",entryPrice2P)
 	print ("\n")
 else:
+	print ("\n")
 	print ("Free Cash Flow Negative - Can't Perform DCF and Pabrai Valuation")
 if EPS > 0.0:
 	intrinsicValuePerShareBenjamin=BenjaminGraham(EPS,EPSGR,RR,Y)
+	print ("\n")
+	print ("EPS and EPS Growth Rate Taken: ",EPS,EPSGR)
 	print ("Based on Banjamin Graham valuation Method")
 	print ("Intrinsic Value Per Share: ", intrinsicValuePerShareBenjamin)
 else:
+	print ("\n")
 	print ("EPS Negative - Can't Perform Benjamin Graham Valuation")

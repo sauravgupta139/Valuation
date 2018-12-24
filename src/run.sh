@@ -6,8 +6,10 @@ TOS=$(w3m https://in.finance.yahoo.com/quote/${SYMBOL}.NS/key-statistics?p=${SYM
 PE=$(w3m "https://in.finance.yahoo.com/quote/${SYMBOL}.NS?p=${SYMBOL}.NS&.tsrc=fin-srch-v1" | grep "PE ratio" | awk '{print $4}')
 EPS=$(w3m "https://in.finance.yahoo.com/quote/${SYMBOL}.NS?p=${SYMBOL}.NS&.tsrc=fin-srch-v1" | grep "EPS" | awk '{print $3}')
 PG=$(w3m https://www.screener.in/company/${SYMBOL}/ | grep "TTM" | head -3 | tail -1 | awk '{print $2}')
-EPSPrev=$(w3m https://www.screener.in/company/${SYMBOL}/ | grep "EPS" | awk '{print $(NF-1)}')
 EPSLast=$(w3m https://www.screener.in/company/${SYMBOL}/ | grep "EPS" | awk '{print $NF}')
+EPSPrev=$(w3m https://www.screener.in/company/${SYMBOL}/ | grep "EPS" | awk '{print $(NF-1)}')
+EPSPrevPrev=$(w3m https://www.screener.in/company/${SYMBOL}/ | grep "EPS" | awk '{print $(NF-2)}')
+EPSPrevPrevPrev=$(w3m https://www.screener.in/company/${SYMBOL}/ | grep "EPS" | awk '{print $(NF-3)}')
 CashFlowLast=$(w3m https://www.screener.in/company/${SYMBOL} | grep "Operating" | awk '{print $NF}'| tail -1)
 CashFlowPrev=$(w3m https://www.screener.in/company/${SYMBOL} | grep "Operating" | awk '{print $(NF-1)}'| tail -1)
 CashFlowPrevPrev=$(w3m https://www.screener.in/company/${SYMBOL} | grep "Operating" | awk '{print $(NF-2)}'| tail -1)
@@ -34,9 +36,16 @@ OS=$(awk '{print $4}' <<< $TOS)
 IFS='%' read -a pg <<< "$PG"
 Pg=${pg[0]}
 
-epsPrev=${EPSPrev#0}
 epsLast=${EPSLast#0}
-EPSGR=$(bc -l <<< "($epsLast-$epsPrev)*100/$epsPrev")
+epsPrev=${EPSPrev#0}
+epsPrev2=${EPSPrevPrev#0}
+epsPrev3=${EPSPrevPrevPrev#0}
+#Figure out Handling divide by zero - GNFC
+EPSGR1=$(bc -l <<< "($epsLast-$epsPrev)*100/$epsPrev")
+EPSGR2=$(bc -l <<< "($epsPrev-$epsPrev2)*100/$epsPrev2")
+EPSGR3=$(bc -l <<< "($epsPrev2-$epsPrev3)*100/$epsPrev3")
+EPSGR=$(bc -l <<< "($EPSGR1+$EPSGR2+$EPSGR3)/3")
+#echo $EPSGR
 
 CFLast=${CashFlowLast//,}
 CFPrev=${CashFlowPrev//,}
@@ -46,7 +55,7 @@ CFLast=${CFLast#0}
 CFPrev=${CFPrev#0}
 CFPrev2=${CFPrev2#0}
 CFPrev3=${CFPrev3#0}
-echo $CFLast, $CFPrev, $CFPrev2, $CFPrev3
+#echo $CFLast, $CFPrev, $CFPrev2, $CFPrev3
 
 CFG1=$(bc -l <<< "($CFLast-1*$CFPrev)*100/${CFPrev#-}")
 CFG2=$(bc -l <<< "($CFPrev-1*$CFPrev2)*100/${CFPrev2#-}")
@@ -82,4 +91,4 @@ epsGR=${EPSGR#0}
 #Exit Rate - Industry PE
 ER=20
 
-python3 src/valuation.py $FCF $CFGR 13.0 10.0 $os $ER $EPS $epsGR $RR $Y
+python3 src/valuation.py $FCF $CFGR 13.0 11.0 $os $ER $EPS $epsGR $RR $Y
