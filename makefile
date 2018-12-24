@@ -1,4 +1,5 @@
+SYMBOL=
 all: run
 
 run:
-	bash src/run.sh
+	bash src/run.sh ${SYMBOL}

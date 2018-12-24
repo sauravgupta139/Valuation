@@ -11,8 +11,12 @@ TGR=2
 ER=float(sys.argv[6])
 #Free Cash Flow
 FCF=float(sys.argv[1])
+
 #FCF Growth Rate1 for 1-5 years
 FCFGR1=float(sys.argv[2])
+if FCFGR1 > 30:
+	FCFGR1 = 30
+
 #FCF Growth Rate2 for 6-10 years
 FCFGR2=float(sys.argv[3])
 #FCF Growth Rate3 for 6-10 years
