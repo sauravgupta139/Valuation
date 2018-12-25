@@ -4,7 +4,7 @@ CFO=$(w3m https://in.finance.yahoo.com/quote/${SYMBOL}.NS/cash-flow?p=${SYMBOL}.
 Capex=$(w3m https://in.finance.yahoo.com/quote/${SYMBOL}.NS/cash-flow?p=${SYMBOL}.NS | grep -i "capital ")
 TOS=$(w3m https://in.finance.yahoo.com/quote/${SYMBOL}.NS/key-statistics?p=${SYMBOL}.NS | grep "Shares outstanding")
 PE=$(w3m "https://in.finance.yahoo.com/quote/${SYMBOL}.NS?p=${SYMBOL}.NS&.tsrc=fin-srch-v1" | grep "PE ratio" | awk '{print $4}')
-EPS=$(w3m "https://in.finance.yahoo.com/quote/${SYMBOL}.NS?p=${SYMBOL}.NS&.tsrc=fin-srch-v1" | grep "EPS" | awk '{print $3}')
+#EPS=$(w3m "https://in.finance.yahoo.com/quote/${SYMBOL}.NS?p=${SYMBOL}.NS&.tsrc=fin-srch-v1" | grep "EPS" | awk '{print $3}')
 PG=$(w3m https://www.screener.in/company/${SYMBOL}/ | grep "TTM" | head -3 | tail -1 | awk '{print $2}')
 EPSLast=$(w3m https://www.screener.in/company/${SYMBOL}/ | grep "EPS" | awk '{print $NF}')
 EPSPrev=$(w3m https://www.screener.in/company/${SYMBOL}/ | grep "EPS" | awk '{print $(NF-1)}')
@@ -14,6 +14,8 @@ CashFlowLast=$(w3m https://www.screener.in/company/${SYMBOL} | grep "Operating" 
 CashFlowPrev=$(w3m https://www.screener.in/company/${SYMBOL} | grep "Operating" | awk '{print $(NF-1)}'| tail -1)
 CashFlowPrevPrev=$(w3m https://www.screener.in/company/${SYMBOL} | grep "Operating" | awk '{print $(NF-2)}'| tail -1)
 CashFlowPrevPrevPrev=$(w3m https://www.screener.in/company/${SYMBOL} | grep "Operating" | awk '{print $(NF-3)}'| tail -1)
+w3m https://www.screener.in/company/${SYMBOL}/ | grep "Current Price"
+w3m https://www.screener.in/company/${SYMBOL}/ | grep "Market Cap"
 
 cfo=${CFO//,}
 cfoTTM=$(echo $cfo | grep -o '[-][0-9]*\|[0-9]*' | head -1)
@@ -90,5 +92,6 @@ Y=7.5
 epsGR=${EPSGR#0}
 #Exit Rate - Industry PE
 ER=20
-
+EPS=$EPSLast
+#echo $EPS
 python3 src/valuation.py $FCF $CFGR 13.0 11.0 $os $ER $EPS $epsGR $RR $Y
