@@ -16,6 +16,9 @@ CashFlowPrevPrev=$(w3m https://www.screener.in/company/${SYMBOL} | grep "Operati
 CashFlowPrevPrevPrev=$(w3m https://www.screener.in/company/${SYMBOL} | grep "Operating" | awk '{print $(NF-3)}'| tail -1)
 w3m https://www.screener.in/company/${SYMBOL}/ | grep "Current Price"
 w3m https://www.screener.in/company/${SYMBOL}/ | grep "Market Cap"
+w3m https://www.screener.in/company/${SYMBOL}/ | grep "P/E"
+w3m https://www.screener.in/company/${SYMBOL}/ | grep "ROCE:"
+w3m https://www.screener.in/company/${SYMBOL}/ | grep "ROE"
 
 cfo=${CFO//,}
 cfoTTM=$(echo $cfo | grep -o '[-][0-9]*\|[0-9]*' | head -1)

@@ -16,6 +16,17 @@ Info
 	and https://www.screener.in/dash/
 
 
+#To get SCRIP name - Say you don't know the SCRIP name but know partial name
+make search SYMBOL=tvs
+
+#Output should be shown as - 
+TVSELECT,TVS Electronics Limited,EQ,26-DEC-2003,10,1,INE236G01019,10
+TVSMOTOR,TVS Motor Company Limited,EQ,02-AUG-2000,1,1,INE494B01023,1
+TVSSRICHAK,TVS Srichakra Limited,EQ,13-FEB-2007,10,1,INE421C01016,10
+
+#choose the one which you need - for e.g.
+make SYMBOL=TVSELECT
+
 #To run
 go to Terminal
 1. Method 1
