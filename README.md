@@ -17,7 +17,7 @@ Info
 
 
 #To get SCRIP name - Say you don't know the SCRIP name but know partial name
-make search SYMBOL=tvs
+make symbol=tvs search
 
 #Output should be shown as - 
 TVSELECT,TVS Electronics Limited,EQ,26-DEC-2003,10,1,INE236G01019,10
@@ -34,9 +34,9 @@ bash run.sh <SCRIP>
 for eg bash run.ch HDFC
 
 2. Method 2
-make SYMBOL=<SCRIP>
+make symbol=<SCRIP>
 for eg make SYMBOL=HDFC
 
 3. Method 3
-python3 valuation.py <Free Cash Flow>  <Cash Flow Growth Rate> <Cash Flow Growth Rate 1> <Cash Flow Growth Rate2> <outstanding shares> <Exit Rate> <EPS> <EPS Growth Rate> <Repo Rate> <10 year Govt. Bond Yield>
+python3 valuation.py <Free Cash Flow>  <Cash Flow Growth Rate> <outstanding shares> <Exit Rate> <EPS> <EPS Growth Rate> <Repo Rate> <10 year Govt. Bond Yield>
 

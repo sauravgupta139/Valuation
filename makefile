@@ -1,8 +1,8 @@
-SYMBOL=
+symbol=
 all: run
 
 run:
-	@bash src/run.sh ${SYMBOL}
+	@bash src/run.sh ${symbol}
 
 search:
-	@grep -i "${SYMBOL}" data/EQUITY_L.csv
+	@grep -i "${symbol}" data/EQUITY_L.csv

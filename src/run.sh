@@ -36,6 +36,7 @@ capexlast3=$(echo $capex | grep -o '[-][0-9]*\|[0-9]*' | head -4 | tail -1)
 #echo $capexTTM, $capexlast, $capexlast2, $capexlast3
 
 OS=$(awk '{print $4}' <<< $TOS)
+#OS="4.39B"
 #echo $OS
 
 IFS='%' read -a pg <<< "$PG"
@@ -97,4 +98,4 @@ epsGR=${EPSGR#0}
 ER=20
 EPS=$EPSLast
 #echo $EPS
-python3 src/valuation.py $FCF $CFGR 13.0 11.0 $os $ER $EPS $epsGR $RR $Y
+python3 src/valuation.py $FCF $CFGR $os $ER $EPS $epsGR $RR $Y
