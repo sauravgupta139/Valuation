@@ -30,13 +30,19 @@ make SYMBOL=TVSELECT
 #To run
 go to Terminal
 1. Method 1
-bash run.sh <SCRIP> 
-for eg bash run.ch HDFC
+bash run.sh SCRIP
+or
+bash run.sh SCRIP consolidated
+for e.g bash run.sh HDFC 
+bash run.ch HDFC con
 
 2. Method 2
-make symbol=<SCRIP>
-for eg make SYMBOL=HDFC
+make symbol=SCRIP
+or 
+make con symbol=SCRIP
+for e.g make SYMBOL=HDFC
+make SYMBOL=HDFC con
 
 3. Method 3
-python3 valuation.py <Free Cash Flow>  <Cash Flow Growth Rate> <outstanding shares> <Exit Rate> <EPS> <EPS Growth Rate> <Repo Rate> <10 year Govt. Bond Yield>
+python3 valuation.py [Free Cash Flow]  [Cash Flow Growth Rate] [outstanding shares] [Exit Rate] [EPS] [EPS Growth Rate] [Repo Rate] [10 year Govt. Bond Yield]
 
