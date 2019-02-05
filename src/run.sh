@@ -5,6 +5,7 @@ Capex=$(w3m https://in.finance.yahoo.com/quote/${SYMBOL}.NS/cash-flow?p=${SYMBOL
 TOS=$(w3m https://in.finance.yahoo.com/quote/${SYMBOL}.NS/key-statistics?p=${SYMBOL}.NS | grep "Shares outstanding")
 PE=$(w3m "https://in.finance.yahoo.com/quote/${SYMBOL}.NS?p=${SYMBOL}.NS&.tsrc=fin-srch-v1" | grep "PE ratio" | awk '{print $4}')
 #EPS=$(w3m "https://in.finance.yahoo.com/quote/${SYMBOL}.NS?p=${SYMBOL}.NS&.tsrc=fin-srch-v1" | grep "EPS" | awk '{print $3}')
+SYMBOL="$1/$2"
 PG=$(w3m https://www.screener.in/company/${SYMBOL}/ | grep "TTM" | head -3 | tail -1 | awk '{print $2}')
 EPSLast=$(w3m https://www.screener.in/company/${SYMBOL}/ | grep "EPS" | awk '{print $NF}')
 EPSPrev=$(w3m https://www.screener.in/company/${SYMBOL}/ | grep "EPS" | awk '{print $(NF-1)}')
