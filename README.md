@@ -38,7 +38,8 @@ bash run.ch HDFC con
 
 2. Method 2
 make symbol=SCRIP
-or 
+or
+for consolidated results 
 make con symbol=SCRIP
 for e.g make SYMBOL=HDFC
 make SYMBOL=HDFC con
