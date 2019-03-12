@@ -21,6 +21,8 @@ w3m https://www.screener.in/company/${SYMBOL}/ | grep "P/E"
 w3m https://www.screener.in/company/${SYMBOL}/ | grep "ROCE:"
 w3m https://www.screener.in/company/${SYMBOL}/ | grep "ROE"
 
+CMP=$(w3m https://www.screener.in/company/${SYMBOL}/ | grep "Current Price" | awk '{print $4}')
+CMP=${CMP//,}
 cfo=${CFO//,}
 cfoTTM=$(echo $cfo | grep -o '[-][0-9]*\|[0-9]*' | head -1)
 cfolast=$(echo $cfo | grep -o '[-][0-9]*\|[0-9]*' | head -2 | tail -1)
@@ -37,8 +39,7 @@ capexlast3=$(echo $capex | grep -o '[-][0-9]*\|[0-9]*' | head -4 | tail -1)
 #echo $capexTTM, $capexlast, $capexlast2, $capexlast3
 
 OS=$(awk '{print $4}' <<< $TOS)
-#OS="4.39B"
-#echo $OS
+echo "Oustanding Shares $OS"
 
 IFS='%' read -a pg <<< "$PG"
 Pg=${pg[0]}
@@ -64,10 +65,10 @@ CFPrev2=${CFPrev2#0}
 CFPrev3=${CFPrev3#0}
 #echo $CFLast, $CFPrev, $CFPrev2, $CFPrev3
 
-CFG1=$(bc -l <<< "($CFLast-1*$CFPrev)*100/${CFPrev#-}")
-CFG2=$(bc -l <<< "($CFPrev-1*$CFPrev2)*100/${CFPrev2#-}")
-CFG3=$(bc -l <<< "($CFPrev2-1*$CFPrev3)*100/${CFPrev3#-}")
-CFGR=$(bc -l <<< "($CFG1+$CFG2+$CFG3)/3")
+#CFG1=$(bc -l <<< "($CFLast-1*$CFPrev)*100/${CFPrev#-}")
+#CFG2=$(bc -l <<< "($CFPrev-1*$CFPrev2)*100/${CFPrev2#-}")
+#CFG3=$(bc -l <<< "($CFPrev2-1*$CFPrev3)*100/${CFPrev3#-}")
+#CFGR=$(bc -l <<< "($CFG1+$CFG2+$CFG3)/3")
 
 if [[ $OS == *M* ]]; then
 	IFS='M' read -a Tos <<< "$OS"
@@ -83,6 +84,13 @@ FCFlast=$((${cfolast#0}+${capexlast#0}))
 FCFlast2=$((${cfolast2#0}+${capexlast2#0}))
 FCFlast3=$((${cfolast3#0}+${capexlast3#0}))
 
+#Cash Flow Growth
+CFG1=$(bc -l <<< "($FCFTTM-1*$FCFlast)*100/${FCFlast#-}")
+CFG2=$(bc -l <<< "($FCFlast-1*$FCFlast2)*100/${FCFlast2#-}")
+CFG3=$(bc -l <<< "($FCFlast2-1*$FCFlast3)*100/${FCFlast3#-}")
+CFGR=$(bc -l <<< "($CFG1+$CFG2+$CFG3)/3")
+#echo $CFG1, $CFG2, $CFG3, CFGR
+
 #Avg free cash flow in crores
 FCF=$(((FCFTTM+FCFlast+FCFlast2+FCFlast3)/40000))
 #echo $FCFTTM, $FCFlast, $FCFlast2, $FCFlast3
@@ -90,7 +98,7 @@ FCF=$(((FCFTTM+FCFlast+FCFlast2+FCFlast3)/40000))
 #echo $os
 
 #Repo Rate
-RR=6.5
+RR=6.25
 #10 year Bind Yield
 Y=7.5
 #EPS Growth Rate
@@ -99,4 +107,5 @@ epsGR=${EPSGR#0}
 ER=20
 EPS=$EPSLast
 #echo $EPS
-python3 src/valuation.py $FCF $CFGR $os $ER $EPS $epsGR $RR $Y
+echo "python3 src/valuation.py $FCF $CFGR $os $ER $EPS $epsGR $RR $Y $CMP"
+python3 src/valuation.py $FCF $CFGR $os $ER $EPS $epsGR $RR $Y $CMP

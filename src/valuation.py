@@ -37,6 +37,9 @@ RR=float(sys.argv[7])
 #10 Year Bond Yield
 Y=float(sys.argv[8])
 
+#Current Market Price
+CMP=float(sys.argv[9])
+
 if FCF > 0.0:
 	if FCFGR1 > 15:
 		intrinsicValuePerShareDCF=DCF(FCF,FCFGR1,FCFGR2,DR,TGR,TSO)
@@ -97,3 +100,49 @@ if EPS > 0.0:
 else:
 	print ("\n")
 	print ("EPS Negative - Can't Perform Benjamin Graham Valuation")
+print ("\n")
+
+if FCF > 0 and EPS > 0:
+	if CMP < entryPrice1D and CMP < entryPrice1P and CMP < intrinsicValuePerShareBenjamin :
+		print ("MSG: OUTRIGHT BUY")
+	elif CMP < entryPrice1D and CMP < entryPrice2P and CMP < intrinsicValuePerShareBenjamin :
+		print ("MSG: OUTRIGHT BUY")
+	elif CMP < entryPrice1D and CMP < entryPrice1P and CMP > intrinsicValuePerShareBenjamin :
+		print ("MSG: BUY with Caution")
+	elif CMP < entryPrice1D and CMP < entryPrice2P and CMP > intrinsicValuePerShareBenjamin :
+		print ("MSG: BUY with Caution")
+	elif CMP < entryPrice1D and CMP > entryPrice1P and CMP < intrinsicValuePerShareBenjamin :
+		print ("MSG: BUY with Caution")
+	elif CMP < entryPrice1D and CMP > entryPrice2P and CMP < intrinsicValuePerShareBenjamin :
+		print ("MSG: BUY with Caution")
+	elif CMP < intrinsicValuePerShareDCF and CMP < intrinsicValuePerSharePabrai and CMP < intrinsicValuePerShareBenjamin :
+		print ("MSG: HOLD")
+	elif CMP < intrinsicValuePerShareDCF and CMP < intrinsicValuePerSharePabrai and CMP > intrinsicValuePerShareBenjamin :
+		print ("MSG: HOLD with caution")
+	elif CMP < intrinsicValuePerShareDCF and CMP > intrinsicValuePerSharePabrai and CMP < intrinsicValuePerShareBenjamin :
+		print ("MSG: HOLD")
+	elif CMP < intrinsicValuePerShareDCF and CMP > intrinsicValuePerSharePabrai and CMP > intrinsicValuePerShareBenjamin :
+		print ("MSG: HOLD with Caution")
+	elif CMP > intrinsicValuePerShareDCF and CMP > intrinsicValuePerSharePabrai and CMP < intrinsicValuePerShareBenjamin :
+		print ("MSG: Hold with Caution or Sell")
+	elif CMP > intrinsicValuePerShareDCF and CMP > intrinsicValuePerSharePabrai and CMP > intrinsicValuePerShareBenjamin :
+		print ("MSG: Sell")
+	else:
+		print ("MSG: Sell")
+elif FCF < 0 and EPS > 0:
+	if CMP < intrinsicValuePerShareBenjamin :
+		print ("MSG: BUY only Banks and NBFC else Sell")
+	elif CMP < intrinsicValuePerShareBenjaminUnrealistic :
+		print ("MSG: Hold only Banks and NBFC else Sell")
+	else:
+		print ("MSG: Sell")
+elif FCF > 0 and EPS < 0:
+	if CMP < entryPrice1D and CMP < entryPrice1P :
+		print ("MSG: BUY with Caution")
+	elif CMP < entryPrice1D and CMP < entryPrice2P :
+		print ("MSG: Hold or Sell")
+	else:
+		print ("MSG: Sell")
+else:
+	print ("MSG: Sell")
+print ("******************************************")
