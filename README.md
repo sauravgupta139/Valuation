@@ -45,5 +45,5 @@ for e.g make SYMBOL=HDFC
 make SYMBOL=HDFC con
 
 3. Method 3
-python3 valuation.py [Free Cash Flow]  [Cash Flow Growth Rate] [outstanding shares] [Exit Rate] [EPS] [EPS Growth Rate] [Repo Rate] [10 year Govt. Bond Yield]
+python3 valuation.py [Free Cash Flow]  [Cash Flow Growth Rate] [outstanding shares] [Exit Rate] [EPS] [EPS Growth Rate] [Repo Rate] [10 year Govt. Bond Yield CMP]
 
