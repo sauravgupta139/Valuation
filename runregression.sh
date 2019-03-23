@@ -2,8 +2,6 @@
 make symbol=ace              | tee log; 
 make symbol=ashokley         | tee -a log;
 make symbol=bajaj-auto con	 | tee -a log;    
-make symbol=bancoindia con	 | tee -a log;
-make symbol=bel              | tee -a log; 
 make symbol=cholafin         | tee -a log;
 make symbol=dhfl             | tee -a log;
 make symbol=gichsgfin        | tee -a log;
@@ -23,6 +21,5 @@ make symbol=polyplex con     | tee -a log;
 make symbol=precwire         | tee -a log;
 make symbol=rain con         | tee -a log;
 make symbol=tatamotors con	 | tee -a log;
-make symbol=trident          | tee -a log;
 make symbol=tvtoday          | tee -a log;
 make symbol=vedl con         | tee -a log;

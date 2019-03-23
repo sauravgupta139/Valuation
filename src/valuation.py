@@ -132,8 +132,9 @@ if FCF > 0 and EPS > 0:
 elif FCF < 0 and EPS > 0:
 	if CMP < intrinsicValuePerShareBenjamin :
 		print ("MSG: BUY only Banks and NBFC else Sell")
-	elif CMP < intrinsicValuePerShareBenjaminUnrealistic :
-		print ("MSG: Hold only Banks and NBFC else Sell")
+	elif EPSGR > 13 :
+		if CMP < intrinsicValuePerShareBenjaminUnrealistic :
+			print ("MSG: Hold only Banks and NBFC else Sell")
 	else:
 		print ("MSG: Sell")
 elif FCF > 0 and EPS < 0:
