@@ -88,14 +88,14 @@ if EPS > 0.0:
 	if EPSGR > 13:
 		print ("\n")
 		print ("EPS and EPS Growth Rate Taken: ",EPS,EPSGR)
-		print ("Based on Banjamin Graham valuation Method")
+		print ("Based on Benjamin Graham valuation Method")
 		intrinsicValuePerShareBenjaminUnrealistic=BenjaminGraham(EPS,EPSGR,RR,Y)
 		EPSGR=13
 		print ("Intrinsic Value Per Share Unrealistic: ", intrinsicValuePerShareBenjaminUnrealistic)
 	intrinsicValuePerShareBenjamin=BenjaminGraham(EPS,EPSGR,RR,Y)
 	print ("\n")
 	print ("EPS and EPS Growth Rate Taken: ",EPS,EPSGR)
-	print ("Based on Banjamin Graham valuation Method")
+	print ("Based on Benjamin Graham valuation Method")
 	print ("Intrinsic Value Per Share: ", intrinsicValuePerShareBenjamin)
 else:
 	print ("\n")

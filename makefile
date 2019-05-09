@@ -1,4 +1,5 @@
 symbol=
+index=
 all: run
 
 run:
@@ -11,3 +12,9 @@ con:
 
 search:
 	@grep -i "${symbol}" data/EQUITY_L.csv
+
+buy:
+	grep -r "OUTRIGHT BUY" ${index}/ | tee buy_reco
+
+buy_banks:
+	grep -r "BUY only Banks and NBFC else Sell" ${index}/ | tee buy_banks_reco

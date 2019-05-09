@@ -20,6 +20,7 @@ w3m https://www.screener.in/company/${SYMBOL}/ | grep "Market Cap"
 w3m https://www.screener.in/company/${SYMBOL}/ | grep "P/E"
 w3m https://www.screener.in/company/${SYMBOL}/ | grep "ROCE:"
 w3m https://www.screener.in/company/${SYMBOL}/ | grep "ROE"
+w3m https://www.screener.in/company/${SYMBOL}/ | grep -i "Dividend.*Yield"
 
 CMP=$(w3m https://www.screener.in/company/${SYMBOL}/ | grep "Current Price" | awk '{print $4}')
 CMP=${CMP//,}
